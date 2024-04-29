@@ -1,1 +1,1 @@
-# Swift---training---projects
+# Swift-training-projects
