@@ -29,22 +29,28 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-    
-    var player: AVAudioPlayer!
 
+    var player: AVAudioPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    @IBAction func keyPressed(_ sender: UIButton) {
-        playSound()
+    
+    @IBAction func Caction(_ sender: Any) {
+        playSound(typeOfLetter: (sender as AnyObject).currentTitle ?? "")
     }
     
-    func playSound() {
-        let url = Bundle.main.url(forResource: "C", withExtension: "wav")
-        player = try! AVAudioPlayer(contentsOf: url!)
-        player.play()
-                
+    func playSound(typeOfLetter: String) {
+        guard let path = Bundle.main.path(forResource: typeOfLetter, ofType:"wav") else { return }
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 ```
